@@ -24,7 +24,7 @@ No es necesario instalar PHP, Composer o MySQL localmente si se utiliza Laravel 
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <url-del-repositorio>
+git clone https://github.com/dunlk/danger-online-php.git
 cd nombre-del-proyecto
 ```
 
