@@ -144,6 +144,6 @@ tests/
 
 ## Equipo
 
-- Marica Cueva
+- Maria Cueva
 - Rodrigo Aguilar
 - Milton Ytusaca
