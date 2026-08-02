@@ -1,4 +1,4 @@
-# Danger-Online
+# Danger-Online-php
 
 Sistema web para la gestión de cibercafés desarrollado con Laravel.
 
@@ -25,7 +25,7 @@ No es necesario instalar PHP, Composer o MySQL localmente si se utiliza Laravel 
 
 ```bash
 git clone https://github.com/dunlk/danger-online-php.git
-cd nombre-del-proyecto
+cd danger-online-php
 ```
 
 ### 2. Copiar el archivo de entorno
