@@ -3,12 +3,15 @@ services:
     name: danger-web
     runtime: docker
     plan: free
+
     dockerfilePath: ./Dockerfile
-    autoDeploy: true
+    dockerContext: .
+
+    healthCheckPath: /health
 
     envVars:
       - key: APP_NAME
-        value: DangerWeb
+        value: Danger Web
 
       - key: APP_ENV
         value: production
@@ -17,39 +20,36 @@ services:
         value: "false"
 
       - key: APP_KEY
-        sync: false
+        generateValue: true
 
       - key: APP_URL
         sync: false
 
+      - key: LOG_CHANNEL
+        value: stderr
+
+      - key: LOG_LEVEL
+        value: error
+
       - key: DB_CONNECTION
         value: pgsql
 
-      - key: DB_HOST
+      - key: DB_URL
         fromDatabase:
           name: danger-db
-          property: host
+          property: connectionString
 
-      - key: DB_PORT
-        fromDatabase:
-          name: danger-db
-          property: port
+      - key: SESSION_DRIVER
+        value: database
 
-      - key: DB_DATABASE
-        fromDatabase:
-          name: danger-db
-          property: database
+      - key: CACHE_STORE
+        value: database
 
-      - key: DB_USERNAME
-        fromDatabase:
-          name: danger-db
-          property: user
-
-      - key: DB_PASSWORD
-        fromDatabase:
-          name: danger-db
-          property: password
+      - key: QUEUE_CONNECTION
+        value: database
 
 databases:
   - name: danger-db
     plan: free
+    databaseName: danger
+    user: danger

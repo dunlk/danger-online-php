@@ -6,6 +6,7 @@
 
 .phpactor.json
 .php-cs-fixer.cache
+.php-cs-fixer.dist.php
 .phpunit.result.cache
 
 /.codex

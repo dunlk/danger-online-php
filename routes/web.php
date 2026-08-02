@@ -3,12 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return "Hola desde home";
 });
 
 Route::get("/render", function () {
-    return response()->json([
-        "status" => "ok",
-        "app" => config("app.name"),
-    ]);
+    return "Hola desde render";
 });
