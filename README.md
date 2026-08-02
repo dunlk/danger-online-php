@@ -1,4 +1,4 @@
-# CyberCafe Manager
+# Danger-Online
 
 Sistema web para la gestión de cibercafés desarrollado con Laravel.
 
