@@ -1,0 +1,55 @@
+services:
+  - type: web
+    name: danger-web
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+
+    envVars:
+      - key: APP_NAME
+        value: DangerWeb
+
+      - key: APP_ENV
+        value: production
+
+      - key: APP_DEBUG
+        value: "false"
+
+      - key: APP_KEY
+        sync: false
+
+      - key: APP_URL
+        sync: false
+
+      - key: DB_CONNECTION
+        value: pgsql
+
+      - key: DB_HOST
+        fromDatabase:
+          name: danger-db
+          property: host
+
+      - key: DB_PORT
+        fromDatabase:
+          name: danger-db
+          property: port
+
+      - key: DB_DATABASE
+        fromDatabase:
+          name: danger-db
+          property: database
+
+      - key: DB_USERNAME
+        fromDatabase:
+          name: danger-db
+          property: user
+
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: danger-db
+          property: password
+
+databases:
+  - name: danger-db
+    plan: free
