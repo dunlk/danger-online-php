@@ -6,7 +6,6 @@ services:
 
     dockerfilePath: ./Dockerfile
     dockerContext: .
-
     healthCheckPath: /health
 
     envVars:
@@ -20,10 +19,10 @@ services:
         value: "false"
 
       - key: APP_KEY
-        generateValue: true
+        sync: false
 
       - key: APP_URL
-        sync: false
+        value: https://danger-web.onrender.com
 
       - key: LOG_CHANNEL
         value: stderr
