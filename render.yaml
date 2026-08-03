@@ -1,0 +1,54 @@
+services:
+  - type: web
+    name: danger-web
+    runtime: docker
+    plan: free
+
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+
+    envVars:
+      - key: APP_NAME
+        value: Danger Web
+
+      - key: APP_ENV
+        value: production
+
+      - key: APP_DEBUG
+        value: "false"
+
+      - key: APP_KEY
+        sync: false
+
+      - key: APP_URL
+        value: https://danger-web.onrender.com
+
+      - key: LOG_CHANNEL
+        value: stderr
+
+      - key: LOG_LEVEL
+        value: error
+
+      - key: DB_CONNECTION
+        value: pgsql
+
+      - key: DB_URL
+        fromDatabase:
+          name: danger-db
+          property: connectionString
+
+      - key: SESSION_DRIVER
+        value: database
+
+      - key: CACHE_STORE
+        value: database
+
+      - key: QUEUE_CONNECTION
+        value: database
+
+databases:
+  - name: danger-db
+    plan: free
+    databaseName: danger
+    user: danger
