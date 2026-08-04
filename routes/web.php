@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,18 @@ Route::middleware(['auth', 'admin'])
         Route::get('/dashboard', function () {
             return "Panel de administración";
         })->name('admin.dashboard');
+    });
+
+Route::middleware(['auth', 'admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name("dashboard");
+
+        Route::resource('categories', CategoryController::class)
+                ->except('show');
     });
 
 Route::get('/dashboard', function () {
