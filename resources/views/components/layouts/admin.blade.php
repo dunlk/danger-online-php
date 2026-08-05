@@ -52,6 +52,15 @@
                     >
                         Categorías
                     </a>
+                    <a
+                        href="{{ route('admin.computers.index') }}"
+                        class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition
+                        {{ request()->routeIs('admin.computers.*')
+                            ? 'bg-rose-500 text-white shadow-lg shadow-rose-500/20'
+                            : 'text-slate-300 hover:bg-slate-800/70 hover:text-white' }}"
+                    >
+                        Computadoras
+                    </a>
                 </nav>
             </aside>
 

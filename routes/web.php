@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ComputerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,9 @@ Route::middleware(['auth', 'admin'])
 
         Route::resource('categories', CategoryController::class)
                 ->except('show');
+
+        Route::resource('computers', ComputerController::class)
+            ->except('show');
     });
 
 Route::get('/dashboard', function () {

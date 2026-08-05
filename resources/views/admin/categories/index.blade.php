@@ -21,16 +21,12 @@
         </div>
 
         @if (session('success'))
-            <div
-                class="rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-5 py-4 text-sm text-emerald-300"
-            >
+            <x-admin.alert>
                 {{ session('success') }}
-            </div>
+            </x-admin.alert>
         @endif
 
-        <div
-            class="overflow-hidden rounded-2xl border border-slate-800 bg-[#0b1930]/90 shadow-2xl shadow-black/20 backdrop-blur-xl"
-        >
+     <x-admin.card>
             <div class="border-b border-slate-800 p-5 sm:p-6">
                 <form
                     action="{{ route('admin.categories.index') }}"
@@ -157,6 +153,6 @@
                     {{ $categories->links() }}
                 </div>
             @endif
-        </div>
+        </x-admin.card>
     </div>
 </x-layouts.admin>
