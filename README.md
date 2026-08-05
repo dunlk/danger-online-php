@@ -69,13 +69,19 @@ docker run --rm \
 ./vendor/bin/sail artisan migrate
 ```
 
-### 7. Instalar dependencias de Node
+### 7. Link
+
+```bash
+./vendor/bin/sail artisan storage:link
+```
+
+### 8. Instalar dependencias de Node
 
 ```bash
 ./vendor/bin/sail npm install
 ```
 
-### 8. Ejecutar Vite
+### 9. Ejecutar Vite
 
 ```bash
 ./vendor/bin/sail npm run dev

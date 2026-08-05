@@ -26,7 +26,7 @@ Route::middleware(['auth', 'admin'])
         })->name("dashboard");
 
         Route::resource('categories', CategoryController::class)
-                ->except('show');
+            ->except('show');
 
         Route::resource('computers', ComputerController::class)
             ->except('show');
