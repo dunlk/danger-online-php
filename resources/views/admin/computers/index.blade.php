@@ -101,7 +101,7 @@
                                 Equipo
                             </th>
 
-                            <th class="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            <th class="px-3 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
                                 Categoría
                             </th>
 
@@ -164,20 +164,23 @@
                                             </p>
 
                                             <p class="mt-1 text-xs text-slate-500">
-                                                {{ $computer->monitor ?: 'Monitor no registrado' }}
+                                                Monitor: "{{ $computer->monitor ?: 'Monitor no registrado' }}"
                                             </p>
                                         </div>
                                     </div>
                                 </td>
 
                                 <td class="px-6 py-5 text-sm text-slate-300">
-                                    {{ $computer->category->name }}
+                                    <x-admin.badge variant="info">
+                                        {{ strtoupper($computer->category->name) }}
+                                    </x-admin.badge>
                                 </td>
 
                                 <td class="px-6 py-5 text-sm text-slate-400">
+
                                     <p>{{ $computer->processor }}</p>
                                     <p class="mt-1">
-                                        {{ $computer->ram }} GB RAM ·
+                                        {{ $computer->ram }} GB RAM |
                                         {{ $computer->graphics ?: 'Gráfica integrada' }}
                                     </p>
                                     <p class="mt-1">

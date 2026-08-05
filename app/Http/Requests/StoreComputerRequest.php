@@ -33,6 +33,7 @@ class StoreComputerRequest extends FormRequest
                 'required',
                 'string',
                 'max:100',
+                'regex:/^PC-\d{2,3}$/',
             ],
             'processor' => [
                 'required',
@@ -48,6 +49,7 @@ class StoreComputerRequest extends FormRequest
             'graphics' => [
                 'nullable',
                 'string',
+                'max:100',
             ],
             'storage' => [
                 'required',

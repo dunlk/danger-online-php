@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'description',
     'processor',
     'ram',
+    'graphics',
     'storage',
     'monitor',
     'hourly_price',
