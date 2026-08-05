@@ -63,6 +63,8 @@ class ComputerController extends Controller
         $categories = Category::query()
             ->orderBy('name')
             ->get();
+
+        return view('admin.computers.create', compact('categories'));
     }
 
     /**
@@ -104,7 +106,7 @@ class ComputerController extends Controller
 
         return view(
             'admin.computers.edit',
-            compact('computers', 'categories')
+            compact('computer', 'categories')
         );
     }
 

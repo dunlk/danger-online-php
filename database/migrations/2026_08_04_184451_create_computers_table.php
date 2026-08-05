@@ -31,7 +31,7 @@ return new class extends Migration {
                 ->default('available')
                 ->index();
 
-            $table->string('imagine')->nullable();
+            $table->string('image')->nullable();
 
             $table->timestamps();
             $table->softDeletes();

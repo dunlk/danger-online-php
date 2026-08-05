@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'name',
     'description',
     'processor',
+    'ram',
     'storage',
     'monitor',
     'hourly_price',
