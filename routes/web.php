@@ -34,6 +34,11 @@ Route::middleware(['auth', 'admin'])
             ->except('show');
 
         Route::patch(
+            'reservations/{reservation}/start',
+            [ReservationController::class, 'start']
+        )->name('reservations.start');
+
+        Route::patch(
             'reservations/{reservation}/approve',
             [ReservationController::class, 'approve']
         )->name('reservations.approve');

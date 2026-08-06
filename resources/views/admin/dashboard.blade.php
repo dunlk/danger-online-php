@@ -195,5 +195,76 @@
                 </div>
             </x-admin.card>
         </div>
+        <x-admin.card>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-semibold text-white">
+                        Últimas reservas
+                    </h3>
+
+                    <p class="mt-1 text-sm text-slate-400">
+                        Solicitudes registradas recientemente.
+                    </p>
+                </div>
+
+                <x-admin.button
+                    variant="secondary"
+                    :href="route('admin.reservations.index')"
+                >
+                    Ver todas
+                </x-admin.button>
+            </div>
+
+            <div class="mt-6 divide-y divide-slate-800">
+                @forelse ($latestReservations as $reservation)
+                    @php
+                        $variant = match ($reservation->status) {
+                            'pending' => 'warning',
+                            'approved' => 'success',
+                            'rejected' => 'danger',
+                            'completed' => 'info',
+                            default => 'default',
+                        };
+
+                        $label = match ($reservation->status) {
+                            'pending' => 'Pendiente',
+                            'approved' => 'Aprobada',
+                            'rejected' => 'Rechazada',
+                            'cancelled' => 'Cancelada',
+                            'completed' => 'Finalizada',
+                            default => $reservation->status,
+                        };
+                    @endphp
+
+                    <div class="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div>
+                            <p class="font-semibold text-white">
+                                {{ $reservation->user->name }}
+                            </p>
+
+                            <p class="mt-1 text-sm text-slate-400">
+                                {{ $reservation->computer->name }}
+                                · {{ $reservation->reservation_date->format('d/m/Y') }}
+                                · {{ $reservation->duration_hours }} hora(s)
+                            </p>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <p class="font-semibold text-white">
+                                S/ {{ number_format($reservation->total_price, 2) }}
+                            </p>
+
+                            <x-admin.badge :variant="$variant">
+                                {{ $label }}
+                            </x-admin.badge>
+                        </div>
+                    </div>
+                @empty
+                    <p class="py-8 text-center text-slate-400">
+                        Todavía no hay reservas registradas.
+                    </p>
+                @endforelse
+            </div>
+        </x-admin.card>
     </div>
 </x-layouts.admin>

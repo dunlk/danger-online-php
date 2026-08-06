@@ -17,10 +17,29 @@ class ReservationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $reservations = Reservation::query()
             ->with(['user', 'computer.category'])
+            ->when(
+                request('search'),
+                function ($query, $search) {
+                    $query->where(function ($query) use ($search) {
+                        $query
+                            ->whereHas(
+                                'user',
+                                fn($userQuery) => $userQuery
+                                    ->where('name', 'ilike', "%{$search}%")
+                                    ->orWhere('email', 'ilike', "%{$search}%")
+                            )
+                            ->orWhereHas(
+                                'computer',
+                                fn($computerQuery) => $computerQuery
+                                    ->where('name', 'ilike', "%{$search}%")
+                            );
+                    });
+                }
+            )
             ->when(
                 request('status'),
                 fn($query, $status) => $query->where('status', $status)
@@ -29,14 +48,46 @@ class ReservationController extends Controller
                 request('date'),
                 fn($query, $date) => $query->whereDate('reservation_date', $date)
             )
-            ->latest('reservation_date')
-            ->latest('start_time')
+            ->orderByDesc('reservation_date')
+            ->orderByDesc('start_time')
             ->paginate(10)
             ->withQueryString();
 
-        return view('admin.reservations.index', compact('reservations'));
+        return view(
+            'admin.reservations.index',
+            compact('reservations')
+        );
     }
 
+    public function start(Reservation $reservation): RedirectResponse
+    {
+        if ($reservation->status !== 'approved') {
+            return back()->with(
+                'error',
+                'Solo se pueden iniciar reservas aprobadas.'
+            );
+        }
+
+        if ($reservation->computer->status !== 'available') {
+            return back()->with(
+                'error',
+                'La computadora no se encuentra disponible.'
+            );
+        }
+
+        $reservation->update([
+            'status' => 'active',
+        ]);
+
+        $reservation->computer->update([
+            'status' => 'occupied',
+        ]);
+
+        return back()->with(
+            'success',
+            'La sesión fue iniciada correctamente.'
+        );
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -129,10 +180,10 @@ class ReservationController extends Controller
 
     public function complete(Reservation $reservation): RedirectResponse
     {
-        if ($reservation->status !== 'approved') {
+        if ($reservation->status !== 'active') {
             return back()->with(
                 'error',
-                'Solo se puede realizar reservas aprobadas.'
+                'Solo se pueden finalizar reservas activas.'
             );
         }
 
@@ -140,9 +191,13 @@ class ReservationController extends Controller
             'status' => 'completed',
         ]);
 
+        $reservation->computer->update([
+            'status' => 'available',
+        ]);
+
         return back()->with(
-            'succes',
-            'Reserva completada correctamente.'
+            'success',
+            'Reserva finalizada y computadora liberada.'
         );
     }
 

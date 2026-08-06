@@ -37,8 +37,16 @@
                 <form
                     action="{{ route('admin.reservations.index') }}"
                     method="GET"
-                    class="grid gap-3 md:grid-cols-3"
+                    class="grid gap-3 lg:grid-cols-5"
                 >
+                    <input
+                        type="search"
+                        name="search"
+                        value="{{ request('search') }}"
+                        placeholder="Cliente, correo o PC..."
+                        class="rounded-xl border border-slate-700 bg-[#0d1b31] px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10 lg:col-span-2"
+                    >
+
                     <select
                         name="status"
                         class="rounded-xl border border-slate-700 bg-[#0d1b31] px-4 py-3 text-sm text-white outline-none focus:border-rose-500 focus:ring-4 focus:ring-rose-500/10"
@@ -73,7 +81,7 @@
                             Filtrar
                         </x-admin.button>
 
-                        @if (request()->hasAny(['status', 'date']))
+                        @if (request()->hasAny(['search', 'status', 'date']))
                             <x-admin.button
                                 variant="secondary"
                                 :href="route('admin.reservations.index')"
@@ -136,6 +144,13 @@
                                     default => $reservation->status,
                                 };
                             @endphp
+                            @php
+                                $startTime = \Carbon\Carbon::parse($reservation->start_time);
+
+                                $endTime = $startTime
+                                    ->copy()
+                                    ->addHours($reservation->duration_hours);
+                            @endphp
 
                             <tr class="transition hover:bg-slate-800/30">
                                 <td class="px-6 py-5">
@@ -164,8 +179,13 @@
                                     </p>
 
                                     <p class="mt-1 text-slate-500">
-                                        {{ \Carbon\Carbon::parse($reservation->start_time)->format('H:i') }}
-                                        · {{ $reservation->duration_hours }} hora(s)
+                                        {{ $startTime->format('H:i') }}
+                                        –
+                                        {{ $endTime->format('H:i') }}
+                                    </p>
+
+                                    <p class="mt-1 text-xs text-slate-600">
+                                        {{ $reservation->duration_hours }} hora(s)
                                     </p>
                                 </td>
 
