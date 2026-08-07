@@ -99,7 +99,7 @@ Route::get('/computers/{computer}', [ComputerCatalogController::class, 'show'])
     ->name('computers.show');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('computers.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
