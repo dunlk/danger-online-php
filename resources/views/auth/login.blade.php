@@ -1,7 +1,7 @@
 <x-layouts.public title="Iniciar sesión">
     <div class="mx-auto max-w-xl py-10 sm:py-16">
         <div class="mb-8 text-center">
-            <p class="text-sm font-semibold uppercase tracking-[0.25em] text-rose-400">
+            <p class="text-sm font-semibold uppercase tracking-[0.25em] text-rose-500">
                 Danger Web
             </p>
 
@@ -57,7 +57,7 @@
                                placeholder:text-slate-500
                                focus:border-rose-500
                                focus:ring-4 focus:ring-rose-500/10"
-                    >
+                    />
 
                     @error('email')
                         <p class="mt-2 text-sm text-rose-400">
@@ -99,7 +99,7 @@
                                placeholder:text-slate-500
                                focus:border-rose-500
                                focus:ring-4 focus:ring-rose-500/10"
-                    >
+                    />
 
                     @error('password')
                         <p class="mt-2 text-sm text-rose-400">
