@@ -61,7 +61,7 @@
 
                     @error('email')
                         <p class="mt-2 text-sm text-rose-400">
-                            {{ $message }}
+                           Datos incorrectos, vuelva a intentar.
                         </p>
                     @enderror
                 </div>
@@ -75,15 +75,6 @@
                             Contraseña
                         </label>
 
-                        @if (Route::has('password.request'))
-                            <a
-                                href="{{ route('password.request') }}"
-                                class="text-sm font-medium text-rose-400 transition
-                                       hover:text-rose-300"
-                            >
-                                ¿Olvidaste tu contraseña?
-                            </a>
-                        @endif
                     </div>
 
                     <input
@@ -103,7 +94,7 @@
 
                     @error('password')
                         <p class="mt-2 text-sm text-rose-400">
-                            {{ $message }}
+                            Contraseña incorrecta, vuelva a intentar.
                         </p>
                     @enderror
                 </div>
