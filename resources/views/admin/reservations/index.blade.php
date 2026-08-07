@@ -129,15 +129,17 @@
                                 $statusVariant = match ($reservation->status) {
                                     'pending' => 'warning',
                                     'approved' => 'success',
+                                    'active' => 'info',
                                     'rejected' => 'danger',
                                     'cancelled' => 'default',
-                                    'completed' => 'info',
+                                    'completed' => 'default',
                                     default => 'default',
                                 };
 
                                 $statusLabel = match ($reservation->status) {
                                     'pending' => 'Pendiente',
                                     'approved' => 'Aprobada',
+                                    'active' => 'En curso',
                                     'rejected' => 'Rechazada',
                                     'cancelled' => 'Cancelada',
                                     'completed' => 'Finalizada',
@@ -239,14 +241,14 @@
 
                                         @if ($reservation->status === 'approved')
                                             <form
-                                                action="{{ route('admin.reservations.complete', $reservation) }}"
+                                                action="{{ route('admin.reservations.start', $reservation) }}"
                                                 method="POST"
                                             >
                                                 @csrf
                                                 @method('PATCH')
 
                                                 <x-admin.button type="submit">
-                                                    Finalizar
+                                                    Iniciar
                                                 </x-admin.button>
                                             </form>
 
@@ -263,6 +265,19 @@
                                                     variant="secondary"
                                                 >
                                                     Cancelar
+                                                </x-admin.button>
+                                            </form>
+                                        @endif
+                                        @if ($reservation->status === 'active')
+                                            <form
+                                                action="{{ route('admin.reservations.complete', $reservation) }}"
+                                                method="POST"
+                                            >
+                                                @csrf
+                                                @method('PATCH')
+
+                                                <x-admin.button type="submit">
+                                                    Finalizar
                                                 </x-admin.button>
                                             </form>
                                         @endif

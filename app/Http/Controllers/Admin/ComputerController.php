@@ -92,7 +92,7 @@ class ComputerController extends Controller
      */
     public function show(Computer $computer)
     {
-        //
+        return view('computers.show', compact('computer'));
     }
 
     /**

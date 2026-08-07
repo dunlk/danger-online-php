@@ -49,6 +49,7 @@ class StoreReservationRequest extends FormRequest
                 Rule::in([
                     'pending',
                     'approved',
+                    'active',
                     'rejected',
                     'cancelled',
                     'completed',

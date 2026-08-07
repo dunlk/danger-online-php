@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ComputerController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ReservationController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+use App\Http\Controllers\ComputerCatalogController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController as UserReservationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,32 +37,60 @@ Route::middleware(['auth', 'admin'])
 
         Route::patch(
             'reservations/{reservation}/start',
-            [ReservationController::class, 'start']
+            [AdminReservationController::class, 'start']
         )->name('reservations.start');
 
         Route::patch(
             'reservations/{reservation}/approve',
-            [ReservationController::class, 'approve']
+            [AdminReservationController::class, 'approve']
         )->name('reservations.approve');
 
         Route::patch(
             'reservations/{reservation}/reject',
-            [ReservationController::class, 'reject']
+            [AdminReservationController::class, 'reject']
         )->name('reservations.reject');
 
         Route::patch(
             'reservations/{reservation}/cancel',
-            [ReservationController::class, 'cancel']
+            [AdminReservationController::class, 'cancel']
         )->name('reservations.cancel');
 
         Route::patch(
             'reservations/{reservation}/complete',
-            [ReservationController::class, 'complete']
+            [AdminReservationController::class, 'complete']
         )->name('reservations.complete');
 
-        Route::resource('reservations', ReservationController::class)
+        Route::resource('reservations', AdminReservationController::class)
             ->only(['index', 'create', 'store', 'destroy']);
     });
+
+Route::middleware('auth')->group(function () {
+    Route::get(
+        '/reservations',
+        [UserReservationController::class, 'index']
+    )->name('reservations.index');
+
+    Route::get(
+        '/computers/{computer}/reserve',
+        [UserReservationController::class, 'create']
+    )->name('reservations.create');
+
+    Route::post(
+        '/computers/{computer}/reserve',
+        [UserReservationController::class, 'store']
+    )->name('reservations.store');
+
+    Route::patch(
+        '/reservations/{reservation}/cancel',
+        [UserReservationController::class, 'cancel']
+    )->name('reservations.cancel');
+});
+
+Route::get('/computers', [ComputerCatalogController::class, 'index'])
+    ->name('computers.index');
+
+Route::get('/computers/{computer}', [ComputerCatalogController::class, 'show'])
+    ->name('computers.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

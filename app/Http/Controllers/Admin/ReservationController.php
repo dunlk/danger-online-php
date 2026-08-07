@@ -71,7 +71,7 @@ class ReservationController extends Controller
         if ($reservation->computer->status !== 'available') {
             return back()->with(
                 'error',
-                'La computadora no se encuentra disponible.'
+                'La computadora no está disponible en este momento.'
             );
         }
 
@@ -85,7 +85,7 @@ class ReservationController extends Controller
 
         return back()->with(
             'success',
-            'La sesión fue iniciada correctamente.'
+            'La reserva fue iniciada y la computadora ahora está ocupada.'
         );
     }
     /**
@@ -197,7 +197,7 @@ class ReservationController extends Controller
 
         return back()->with(
             'success',
-            'Reserva finalizada y computadora liberada.'
+            'Reserva finalizada y computadora liberada correctamente.'
         );
     }
 

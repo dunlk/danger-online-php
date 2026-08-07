@@ -21,6 +21,7 @@ class ReservationService
 
         $hourlyPrice = (float) $computer->hourly_price;
         $durationHours = (int) $data['duration_hours'];
+
         $totalPrice = $hourlyPrice * $durationHours;
 
         $this->ensureComputerIsAvailable(
@@ -36,8 +37,10 @@ class ReservationService
             'reservation_date' => $data['reservation_date'],
             'start_time' => $data['start_time'],
             'duration_hours' => $durationHours,
+
             'hourly_price' => $hourlyPrice,
             'total_price' => $totalPrice,
+
             'status' => 'pending',
             'notes' => $data['notes'] ?? null,
         ]);
@@ -53,7 +56,9 @@ class ReservationService
             "{$date} {$startTime}"
         );
 
-        $newEnd = $newStart->copy()->addHours($duration);
+        $newEnd = $newStart
+            ->copy()
+            ->addHours($duration);
 
         $reservations = Reservation::query()
             ->where('computer_id', $computer->id)
@@ -74,7 +79,10 @@ class ReservationService
                 ->copy()
                 ->addHours($reservation->duration_hours);
 
-            if ($newStart < $existingEnd && $newEnd > $existingStart) {
+            if (
+                $newStart < $existingEnd
+                && $newEnd > $existingStart
+            ) {
                 throw ValidationException::withMessages([
                     'start_time' => 'La computadora ya tiene una reserva en ese horario.',
                 ]);
