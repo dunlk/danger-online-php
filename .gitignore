@@ -24,6 +24,7 @@
 
 /public/build
 /public/fonts-manifest.dev.json
+/__MACOSX/
 /public/hot
 /public/storage
 

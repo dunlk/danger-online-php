@@ -69,13 +69,19 @@ docker run --rm \
 ./vendor/bin/sail artisan migrate
 ```
 
-### 7. Instalar dependencias de Node
+### 7. Link
+
+```bash
+./vendor/bin/sail artisan storage:link
+```
+
+### 8. Instalar dependencias de Node
 
 ```bash
 ./vendor/bin/sail npm install
 ```
 
-### 8. Ejecutar Vite
+### 9. Ejecutar Vite
 
 ```bash
 ./vendor/bin/sail npm run dev
@@ -139,6 +145,79 @@ routes/
 storage/
 tests/
 ```
+
+---
+
+## ERD
+
+                    USERS
+
+┌────────────────────────────────────┐
+│ id (PK) │
+│ name │
+│ email │
+│ password │
+│ role │
+│ remember_token │
+│ created_at │
+│ updated_at │
+└────────────────────────────────────┘
+│
+│ 1
+│
+│
+│ N
+RESERVATIONS
+┌────────────────────────────────────┐
+│ id (PK) │
+│ user_id (FK) │
+│ computer_id (FK) │
+│ reservation_date │
+│ start_time │
+│ hours │
+│ status │
+│ notes │
+│ created_at │
+│ updated_at │
+└────────────────────────────────────┘
+▲
+│
+│ N
+│
+│
+│ 1
+COMPUTERS
+┌────────────────────────────────────┐
+│ id (PK) │
+│ category_id (FK) │
+│ name (PC-01) │
+│ description │
+│ processor │
+│ ram │
+│ graphics │
+│ storage │
+│ monitor │
+│ hourly_price │
+│ status │
+│ image │
+│ created_at │
+│ updated_at │
+│ deleted_at │
+└────────────────────────────────────┘
+▲
+│
+│ N
+│
+│
+│ 1
+CATEGORIES
+┌────────────────────────────────────┐
+│ id (PK) │
+│ name │
+│ description │
+│ created_at │
+│ updated_at │
+└────────────────────────────────────┘
 
 ---
 
