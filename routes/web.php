@@ -13,6 +13,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'ok',
+    ], 200);
+});
+
 // Route::middleware(['auth', 'admin'])
 //     ->prefix('admin')
 //     ->group(function () {
