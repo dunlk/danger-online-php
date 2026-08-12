@@ -152,10 +152,10 @@ tests/
 
                     USERS
 
-┌────────────────────────────────────┐
-│ id (PK) │
-│ name │
-│ email │
+┌────────────────────────────────────┐\n
+│ id (PK)                            │
+│ name                               │
+│ email                              │
 │ password │
 │ role │
 │ remember_token │
