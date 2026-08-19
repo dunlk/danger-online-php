@@ -1,4 +1,4 @@
-# Danger-Online-php
+# DEMO - Danger-Online-php
 
 Sistema web para la gestión de cibercafés desarrollado con Laravel.
 
